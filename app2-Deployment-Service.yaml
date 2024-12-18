@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: City-Express Deployment
+spec:
+  replicas: 2
+  selector:
+    matchlabels:
+      app: City-Express
+  template:
+    metadata:
+      labels:
+        app: City-Express
+    spec:
+      containers:
+      - name: City-Express
+        image: pratham7289/city-express:latest
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: City-Express-Service
+spec:
+  selector:
+    app: City-Express
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
